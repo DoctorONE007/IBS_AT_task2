@@ -106,7 +106,7 @@ public class RGSTest extends BaseTests {
         sendButton.click();
 
         //Проверить, что у поля почты высветилась ошибка ввода
-        String errorEmailXPath = "//span[@class='validation-error-text'][contains(text(), 'Введите адрес электронной почты')]";
+        String errorEmailXPath = "//input[@name='Email']/..//span[@class='validation-error-text'][contains(text(), 'Введите адрес электронной почты')]";
         Assertions.assertTrue(elementExist(By.xpath(errorEmailXPath)), "Сообщение об ошибке почты отсутсвует или изменилось");
     }
 
