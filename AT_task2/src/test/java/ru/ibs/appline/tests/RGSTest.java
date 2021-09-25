@@ -7,12 +7,10 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.ibs.appline.tests.base.BaseTests;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -20,24 +18,7 @@ import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.is;
 
-public class RGSTest {
-    private static WebDriver driver;
-    private static WebDriverWait wait;
-
-
-    @BeforeEach
-    public void before() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/webdriver/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
-        wait = new WebDriverWait(driver, 10, 1000);
-
-        String baseUrl = "https://www.rgs.ru/";
-        driver.get(baseUrl);
-    }
+public class RGSTest extends BaseTests {
 
     private static Stream<Arguments> names() {
         return Stream.of(
@@ -129,10 +110,7 @@ public class RGSTest {
         Assertions.assertTrue(elementExist(By.xpath(errorEmailXPath)), "Сообщение об ошибке почты отсутсвует или изменилось");
     }
 
-    @AfterEach
-    public void after() {
-        driver.quit();
-    }
+
 
     /**
      * Закрытие всплывающих окон
